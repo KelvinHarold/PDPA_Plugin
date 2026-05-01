@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/privacy_portal/db" VERSION="20240501" COMMENT="XMLDB file for Moodle local/privacy_portal"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_privacy_portal_cons" COMMENT="Stores user granular consent preferences">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Unique identifier for the record"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="The ID of the user these preferences belong to"/>
+        <FIELD NAME="sharing" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="Consent for data sharing"/>
+        <FIELD NAME="analytics" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="Consent for analytics"/>
+        <FIELD NAME="marketing" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="Consent for marketing"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="The time the record was last modified"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for the consent table"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" COMMENT="Link to the user table"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" COMMENT="Index for userid foreign key"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_privacy_portal_shar" COMMENT="Logs of third-party data sharing events">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Unique identifier for the record"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Target user ID"/>
+        <FIELD NAME="thirdpartyname" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Name of the third party"/>
+        <FIELD NAME="purpose" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Purpose of sharing"/>
+        <FIELD NAME="categories" TYPE="text" NOTNULL="true" COMMENT="Categories of data shared"/>
+        <FIELD NAME="timeshared" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Time of sharing"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for the sharing table"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" COMMENT="Link to the user table"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" COMMENT="Index for userid foreign key"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_privacy_portal_reqs" COMMENT="Logs of user data portability requests">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Unique identifier for the record"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Requesting user ID"/>
+        <FIELD NAME="categories" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Requested categories"/>
+        <FIELD NAME="format" TYPE="char" LENGTH="20" NOTNULL="true" COMMENT="Export format"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="completed" COMMENT="Status of request"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Time created"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for the requests table"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" COMMENT="Link to the user table"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" COMMENT="Index for userid foreign key"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
