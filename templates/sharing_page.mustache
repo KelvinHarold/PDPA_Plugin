@@ -1,0 +1,295 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .local_privacy_portal_container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* modern card design */
+    .pp-card-elegant {
+        background: #ffffff;
+        border-radius: 1.75rem;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+
+    .pp-card-header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #edf2f9;
+        background: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .pp-card-header h5 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #e9a23b 0%, #d97706 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.2px;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .pp-badge-law {
+        background: #fffbeb;
+        padding: 0.35rem 1rem;
+        border-radius: 40px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #92400e;
+    }
+
+    .pp-card-body {
+        padding: 2rem;
+    }
+
+    /* Stats bar */
+    .metrics-grid-sharing {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .metric-card-sharing {
+        background: #f8fafc;
+        border-radius: 1.25rem;
+        padding: 1.25rem;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+    }
+
+    .metric-value-sharing {
+        display: block;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #1e293b;
+    }
+
+    .metric-label-sharing {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+    }
+
+    /* Search bar */
+    .search-wrapper {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+    }
+
+    .search-input-modern {
+        width: 100%;
+        padding: 0.85rem 1rem 0.85rem 3rem;
+        border-radius: 2rem;
+        border: 1px solid #e2e8f0;
+        background: #fcfdfe;
+        font-size: 0.9rem;
+        transition: 0.2s;
+    }
+
+    .search-input-modern:focus {
+        outline: none;
+        border-color: #e9a23b;
+        box-shadow: 0 0 0 3px rgba(233, 162, 59, 0.1);
+    }
+
+    /* partners list */
+    .partner-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #f1f5f9;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #334155;
+        border: 1px solid #e2e8f0;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Table styles */
+    .table-modern {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 1rem;
+        overflow: hidden;
+        border: 1px solid #edf2f7;
+    }
+
+    .table-modern th {
+        background: #f8fafc;
+        padding: 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #475569;
+        text-align: left;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .table-modern td {
+        padding: 1rem;
+        font-size: 0.85rem;
+        color: #1e293b;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .tool-icon-box {
+        width: 32px;
+        height: 32px;
+        background: #fef3c7;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #d97706;
+    }
+
+    @media (max-width: 640px) {
+        .metrics-grid-sharing {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="local_privacy_portal_container">
+    <div class="pp-card-elegant">
+        <div class="pp-card-header">
+            <h5>
+                <i class="fas fa-share-alt" style="background: linear-gradient(135deg, #e9a23b, #d97706); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
+                {{#str}} sharing_notifications, local_privacy_portal {{/str}}
+            </h5>
+            <div class="pp-badge-law">
+                <i class="fas fa-history me-1"></i> PDPA Sec 26 · Right to Transparency
+            </div>
+        </div>
+        <div class="pp-card-body">
+            <div class="greeting-section mb-4">
+                <div class="lead h5 fw-bold mb-1" style="color: #1e293b;">Your Transparency Dashboard</div>
+                <p class="text-muted small">See what data is shared and get notified when tools access your information.</p>
+            </div>
+
+            <!-- Metrics -->
+            <div class="metrics-grid-sharing">
+                <div class="metric-card-sharing">
+                    <span class="metric-label-sharing">Tools Accessed</span>
+                    <span class="metric-value-sharing">{{stats.tools}}</span>
+                    <small class="text-muted">Active connections</small>
+                </div>
+                <div class="metric-card-sharing">
+                    <span class="metric-label-sharing">Notifications</span>
+                    <span class="metric-value-sharing">{{stats.notifications}}</span>
+                    <small class="text-muted">Events logged</small>
+                </div>
+                <div class="metric-card-sharing">
+                    <span class="metric-label-sharing">Data Points</span>
+                    <span class="metric-value-sharing">{{stats.total}}</span>
+                    <small class="text-muted">Total shared</small>
+                </div>
+            </div>
+
+            <!-- Partner List -->
+            {{#has_lti}}
+            <div class="mb-4">
+                <h6 class="text-muted small fw-bold text-uppercase mb-3">Configured External Partners</h6>
+                <div class="partners-flex">
+                    {{#lti_tools}}
+                    <div class="partner-pill">
+                        <i class="fas fa-plug text-warning"></i> {{name}}
+                    </div>
+                    {{/lti_tools}}
+                </div>
+            </div>
+            {{/has_lti}}
+
+            <!-- Search -->
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input-modern" placeholder="Filter by partner or purpose..." id="sharingSearch">
+            </div>
+
+            <!-- History Table -->
+            <div class="table-responsive">
+                <table class="table-modern" id="sharingTable">
+                    <thead>
+                        <tr>
+                            <th>Tool Partner</th>
+                            <th>Purpose</th>
+                            <th>Categories</th>
+                            <th>Date Shared</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#history}}
+                        <tr>
+                            <td class="fw-bold">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="tool-icon-box">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </div>
+                                    {{thirdpartyname}}
+                                </div>
+                            </td>
+                            <td>{{purpose}}</td>
+                            <td><span class="badge rounded-pill bg-light text-dark border">{{categories}}</span></td>
+                            <td><small class="text-muted"><i class="far fa-clock me-1"></i> {{date}}</small></td>
+                        </tr>
+                        {{/history}}
+                        {{^history}}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i class="fas fa-info-circle fa-2x mb-3 d-block"></i>
+                                No data sharing events recorded yet.
+                            </td>
+                        </tr>
+                        {{/history}}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 p-3 bg-light border-start border-warning border-4 rounded shadow-sm d-flex align-items-center">
+                <i class="fas fa-shield-alt text-warning me-3" style="font-size: 1.5rem;"></i>
+                <small class="text-muted">
+                    <strong>Transparency First:</strong> Every time a third-party tool accesses your data, it is recorded here for your review. This ensures compliance with **PDPA Section 26** "Right to Know".
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('sharingSearch')?.addEventListener('keyup', function() {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#sharingTable tbody tr');
+        rows.forEach(row => {
+            row.style.display = (row.textContent.toLowerCase().indexOf(value) > -1) ? '' : 'none';
+        });
+    });
+</script>

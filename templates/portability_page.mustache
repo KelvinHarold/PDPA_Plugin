@@ -1,0 +1,413 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .local_privacy_portal_container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* modern card design */
+    .pp-card-elegant {
+        background: #ffffff;
+        border-radius: 1.75rem;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+
+    .pp-card-header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #edf2f9;
+        background: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .pp-card-header h5 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #2c6280 0%, #1a4b6e 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.2px;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .pp-badge-law {
+        background: #eef3fc;
+        padding: 0.35rem 1rem;
+        border-radius: 40px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #2c6280;
+    }
+
+    .pp-card-body {
+        padding: 2rem;
+    }
+
+    /* info highlight */
+    .info-highlight {
+        background: #f8fcff;
+        border-left: 4px solid #3b82f6;
+        padding: 1rem 1.25rem;
+        border-radius: 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .info-highlight p {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        color: #3e5a77;
+    }
+
+    /* data category cards grid */
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.2rem;
+        margin: 1.5rem 0 1rem;
+    }
+
+    .category-card {
+        background: #ffffff;
+        border: 1px solid #e6edf4;
+        border-radius: 1.25rem;
+        padding: 1rem 1.25rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .category-card:hover {
+        border-color: #cbdde9;
+        background: #fefefe;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        transform: translateY(-1px);
+    }
+
+    .category-card.selected {
+        border-left: 4px solid #3b82f6;
+        background: #fafdff;
+    }
+
+    .custom-checkbox-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .custom-checkbox-wrapper input[type="checkbox"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-top: 0.2rem;
+        accent-color: #2c6280;
+        cursor: pointer;
+    }
+
+    .category-label {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #1f4662;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .category-desc {
+        font-size: 0.75rem;
+        color: #6a7f9b;
+        margin-top: 0.35rem;
+        line-height: 1.3;
+    }
+
+    /* format & export row */
+    .export-action-row {
+        background: #f9fbfe;
+        border-radius: 1.25rem;
+        padding: 1.5rem;
+        margin: 1.5rem 0 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1.25rem;
+    }
+
+    .format-group {
+        flex: 2;
+        min-width: 180px;
+    }
+
+    .format-group label {
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: #3c5a7d;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .custom-select-modern {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        border: 1px solid #dce5ef;
+        background: white;
+        font-family: 'Inter', monospace;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #1f3b54;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .btn-export {
+        background: linear-gradient(105deg, #2c6280, #1f5575);
+        border: none;
+        padding: 0.85rem 2rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        transition: all 0.25s;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        flex: 1;
+        justify-content: center;
+    }
+
+    /* history table */
+    .history-section {
+        margin-top: 2.5rem;
+    }
+
+    .history-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .history-header h6 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1f4662;
+    }
+
+    .table-modern {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: white;
+        border-radius: 1.2rem;
+        overflow: hidden;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .table-modern th {
+        background: #f8fafd;
+        padding: 1rem 1.2rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #5d708b;
+        border-bottom: 1px solid #eef2f8;
+    }
+
+    .table-modern td {
+        padding: 1rem 1.2rem;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #f0f4fa;
+        color: #2c485f;
+    }
+
+    .badge-status {
+        display: inline-block;
+        padding: 0.25rem 0.85rem;
+        border-radius: 2rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+
+    .badge-completed {
+        background: #e0f2e9;
+        color: #156c50;
+    }
+
+    .badge-pending {
+        background: #fff0e0;
+        color: #c26b2a;
+    }
+
+    @media (max-width: 680px) {
+        .export-action-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
+
+<div class="local_privacy_portal_container">
+    <div class="pp-card-elegant">
+        <div class="pp-card-header">
+            <h5>
+                <i class="fas fa-database" style="background: linear-gradient(135deg, #2c6280, #1a4b6e); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
+                {{#str}} data_portability, local_privacy_portal {{/str}}
+            </h5>
+            <div class="pp-badge-law">
+                <i class="fas fa-gavel me-1"></i> PDPA Sec 25 · Right to Portability
+            </div>
+        </div>
+        <div class="pp-card-body">
+            <!-- Info notice -->
+            <div class="info-highlight">
+                <p><i class="fas fa-shield-alt text-info me-2"></i> Select specific categories for export. Your right to access and portability is protected under Section 25 of the PDPA.</p>
+            </div>
+
+            <form action="{{export_url}}" method="post" id="portabilityForm">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="id" value="{{userid}}">
+                
+                <h6 class="fw-bold mb-3" style="color:#1f4662;"><i class="fas fa-check-double me-2"></i> Select data categories</h6>
+                <div class="categories-grid">
+                    <!-- Profile card -->
+                    <div class="category-card" onclick="document.getElementById('cat_profile').click()">
+                        <div class="custom-checkbox-wrapper">
+                            <input type="checkbox" name="categories[]" value="profile" id="cat_profile" checked onclick="event.stopPropagation()">
+                            <div style="flex:1">
+                                <label for="cat_profile" class="category-label">
+                                    <i class="fas fa-id-card text-info"></i> Profile information
+                                </label>
+                                <div class="category-desc">Verified Profile · {{summary.enrolments_count}} active enrolments, contact details</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Grades card -->
+                    <div class="category-card" onclick="document.getElementById('cat_grades').click()">
+                        <div class="custom-checkbox-wrapper">
+                            <input type="checkbox" name="categories[]" value="grades" id="cat_grades" checked onclick="event.stopPropagation()">
+                            <div style="flex:1">
+                                <label for="cat_grades" class="category-label">
+                                    <i class="fas fa-chart-bar text-info"></i> Academic Grades
+                                </label>
+                                <div class="category-desc">{{summary.grades_count}} assessment scores, transcript summaries</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Activity Logs card -->
+                    <div class="category-card" onclick="document.getElementById('cat_logs').click()">
+                        <div class="custom-checkbox-wrapper">
+                            <input type="checkbox" name="categories[]" value="activity" id="cat_logs" onclick="event.stopPropagation()">
+                            <div style="flex:1">
+                                <label for="cat_logs" class="category-label">
+                                    <i class="fas fa-history text-info"></i> Activity Logs
+                                </label>
+                                <div class="category-desc">Last login: {{summary.last_login}} from {{summary.last_ip}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Forum Posts card -->
+                    <div class="category-card" onclick="document.getElementById('cat_forum').click()">
+                        <div class="custom-checkbox-wrapper">
+                            <input type="checkbox" name="categories[]" value="forum" id="cat_forum" onclick="event.stopPropagation()">
+                            <div style="flex:1">
+                                <label for="cat_forum" class="category-label">
+                                    <i class="fas fa-comments text-info"></i> Forum Posts
+                                </label>
+                                <div class="category-desc">{{summary.forum_posts_count}} discussion posts and metadata</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export format & action -->
+                <div class="export-action-row">
+                    <div class="format-group">
+                        <label><i class="fas fa-file-export me-1"></i> Export format</label>
+                        <select name="format" id="exportFormat" class="custom-select-modern">
+                            <option value="csv" selected>CSV (Spreadsheet / Excel)</option>
+                            <option value="json">JSON (Data Interchange / API)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-export">
+                        <i class="fas fa-paper-plane"></i> Request data export
+                    </button>
+                </div>
+            </form>
+
+            <!-- Request History Section -->
+            <div class="history-section">
+                <div class="history-header">
+                    <i class="fas fa-history" style="color:#2c6280;"></i>
+                    <h6>My previous export requests</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-modern">
+                        <thead>
+                            <tr><th>Date requested</th><th>Categories</th><th>Format</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            {{#history}}
+                            <tr>
+                                <td><i class="far fa-calendar-alt me-1"></i> {{date}}</td>
+                                <td>{{categories}}</td>
+                                <td><span class="badge-status" style="background:#eef2fa;">{{format}}</span></td>
+                                <td><span class="badge-status {{badge_class}}">{{status}}</span></td>
+                            </tr>
+                            {{/history}}
+                            {{^history}}
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">No previous requests found.</td>
+                            </tr>
+                            {{/history}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('portabilityForm');
+    form.addEventListener('submit', function(e) {
+        const checkboxes = document.querySelectorAll('input[name="categories[]"]:checked');
+        if (checkboxes.length === 0) {
+            e.preventDefault();
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '24px';
+            toast.style.right = '24px';
+            toast.style.backgroundColor = '#dc3545';
+            toast.style.color = 'white';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '40px';
+            toast.style.zIndex = '1000';
+            toast.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> Error: Please select at least one category.';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    });
+
+    document.querySelectorAll('.category-card').forEach(card => {
+        const cb = card.querySelector('input[type="checkbox"]');
+        const updateHighlight = () => card.classList.toggle('selected', cb.checked);
+        cb.addEventListener('change', updateHighlight);
+        updateHighlight();
+    });
+</script>

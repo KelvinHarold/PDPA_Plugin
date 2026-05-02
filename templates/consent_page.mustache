@@ -1,0 +1,392 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* main container - cozy max width */
+    .local_privacy_portal_container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    /* card design: clean, elevated, smooth radius */
+    .pp-card-modern {
+        background: #ffffff;
+        border-radius: 1.75rem;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pp-card-header {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #ecf3fa;
+        background: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .pp-card-header h5 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #1a6e53 0%, #0f5c45 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.3px;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .pp-badge-pill {
+        background: #eef3fc;
+        padding: 0.35rem 1rem;
+        border-radius: 40px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #2c6280;
+        letter-spacing: 0.02em;
+    }
+
+    .pp-card-body {
+        padding: 2rem;
+    }
+
+    .greeting-section {
+        margin-bottom: 2rem;
+        padding-bottom: 0.25rem;
+    }
+
+    .greeting-section .lead {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #2c4b6e;
+        margin-bottom: 0.25rem;
+    }
+
+    .greeting-section small {
+        color: #6c86a3;
+        font-size: 0.8rem;
+    }
+
+    /* preference list - modern card list */
+    .preference-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        margin: 1.5rem 0 1rem;
+    }
+
+    .pref-item {
+        background: #ffffff;
+        border-radius: 1.25rem;
+        border: 1px solid #e9edf3;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .pref-item:hover {
+        border-color: #d0dfec;
+        background: #fefefe;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .pref-item.bg-light-dashed {
+        background: #fafcff;
+        border-left: 4px solid #1e7b5c;
+        border-left-style: solid;
+    }
+
+    .pref-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        flex: 3;
+    }
+
+    .pref-icon {
+        width: 44px;
+        height: 44px;
+        background: #eef3f0;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1e7b5c;
+        font-size: 1.3rem;
+        transition: 0.2s;
+    }
+
+    .pref-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .pref-title {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #1d3b54;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .badge-required {
+        background: #e5f6ef;
+        color: #146b4f;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 0.25rem 0.8rem;
+        border-radius: 30px;
+        letter-spacing: 0.3px;
+    }
+
+    .pref-desc {
+        font-size: 0.8rem;
+        color: #5c6f87;
+        line-height: 1.4;
+        max-width: 380px;
+    }
+
+    .pref-status {
+        text-align: right;
+        min-width: 120px;
+    }
+
+    /* toggle switch (modern apple-like) */
+    .custom-switch-modern {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 28px;
+    }
+
+    .custom-switch-modern input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider-round {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #cddae9;
+        transition: 0.25s;
+        border-radius: 34px;
+    }
+
+    .slider-round:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.25s;
+        border-radius: 50%;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    input:checked + .slider-round {
+        background-color: #1e7b5c;
+    }
+
+    input:checked + .slider-round:before {
+        transform: translateX(24px);
+    }
+
+    input:disabled + .slider-round {
+        background-color: #bdcad9;
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .status-badge-text {
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        display: inline-block;
+        padding: 0.2rem 0.7rem;
+        border-radius: 30px;
+        background: #f1f4f9;
+        color: #1f4a6e;
+    }
+
+    .status-active {
+        background: #e0f2e9;
+        color: #156c50;
+    }
+
+    .status-withdrawn {
+        background: #ffeae8;
+        color: #bc5a4c;
+    }
+
+    /* footer actions */
+    .footer-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        margin-top: 2rem;
+        padding-top: 1.8rem;
+        border-top: 1px solid #ecf2f9;
+    }
+
+    .btn-save {
+        background: #1e7b5c;
+        border: none;
+        padding: 0.8rem 2.2rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        transition: all 0.2s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        cursor: pointer;
+    }
+
+    .btn-save:hover {
+        background: #0f634b;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(30,123,92,0.2);
+    }
+
+    .compliance-note {
+        text-align: right;
+    }
+
+    .compliance-note small {
+        font-size: 0.7rem;
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+        justify-content: flex-end;
+        color: #5d7188;
+    }
+
+    @media (max-width: 680px) {
+        .pref-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .pref-status {
+            text-align: left;
+            width: 100%;
+        }
+        .footer-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .compliance-note {
+            text-align: left;
+        }
+    }
+</style>
+
+<div class="local_privacy_portal_container">
+    <div class="pp-card-modern">
+        <div class="pp-card-header">
+            <h5>
+                <i class="fas fa-shield-alt" style="background: linear-gradient(135deg, #1e7b5c, #3aa07f); -webkit-background-clip: text; background-clip: text; color: transparent;"></i> 
+                {{#str}} consent_management, local_privacy_portal {{/str}}
+            </h5>
+            <div class="pp-badge-pill">
+                <i class="fas fa-gavel mr-1"></i> PDPA Sec 14 · Lawful Consent
+            </div>
+        </div>
+        <div class="pp-card-body">
+            <div class="greeting-section">
+                <div class="lead">
+                    <i class="fas fa-user-check text-success me-2"></i> Smooth & clear choices for your privacy.
+                </div>
+                <small class="text-muted"><i class="far fa-clock"></i> Manage how your personal data is used within this platform. Withdraw or give consent anytime.</small>
+            </div>
+
+            <form action="{{save_url}}" method="post" id="consentForm">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="save">
+                
+                <div class="preference-list">
+                    {{#consent}}
+                    <div class="pref-item {{#is_required}}bg-light-dashed{{/is_required}}">
+                        <div class="pref-info">
+                            <div class="pref-icon shadow-sm">
+                                <i class="fas {{icon}}"></i>
+                            </div>
+                            <div class="pref-text">
+                                <span class="pref-title">
+                                    {{label}}
+                                    {{#is_required}}
+                                    <span class="badge-required">REQUIRED</span>
+                                    {{/is_required}}
+                                </span>
+                                <span class="pref-desc">{{desc}}</span>
+                            </div>
+                        </div>
+                        <div class="pref-status">
+                            <label class="custom-switch-modern">
+                                <input type="checkbox" name="{{name}}" value="1" {{checked}} {{#is_required}}disabled{{/is_required}} class="consent-toggle" data-status-id="status_{{name}}">
+                                <span class="slider-round"></span>
+                            </label>
+                            <div class="status-badge-text {{#checked}}status-active{{/checked}}{{^checked}}status-withdrawn{{/checked}}" id="status_{{name}}">
+                                {{status_label}}
+                            </div>
+                        </div>
+                    </div>
+                    {{/consent}}
+                </div>
+
+                <div class="footer-actions">
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i> {{#str}} save_preferences, local_privacy_portal {{/str}}
+                    </button>
+                    <div class="compliance-note">
+                        <small><i class="fas fa-calendar-alt me-1"></i> Compliance audit: Section 18 (Record Keeping)</small>
+                        <small class="text-success d-block mt-1"><i class="fas fa-check-circle"></i> Tanzania PDPA 2026 Ready</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.consent-toggle').forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const statusId = this.getAttribute('data-status-id');
+            const statusElem = document.getElementById(statusId);
+            if (this.checked) {
+                statusElem.textContent = 'Active';
+                statusElem.className = 'status-badge-text status-active';
+            } else {
+                statusElem.textContent = 'Withdrawn';
+                statusElem.className = 'status-badge-text status-withdrawn';
+            }
+        });
+    });
+</script>

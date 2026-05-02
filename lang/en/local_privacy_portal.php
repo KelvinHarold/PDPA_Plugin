@@ -14,6 +14,7 @@ $string['privacy_portal:view'] = 'View privacy portal';
 $string['portal_title'] = 'Privacy & Data Management';
 $string['consent_management'] = 'Granular Consent Management';
 $string['data_portability'] = 'Data Access & Portability';
+$string['sharing_notifications'] = 'Third-party Sharing History';
 
 // Consent purposes.
 $string['purpose_sharing'] = 'Third-party Data Sharing';

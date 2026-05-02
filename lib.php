@@ -10,38 +10,39 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Extend user navigation to include the Privacy Portal.
- * This ensures it appears in the user profile navigation.
- *
- * @param navigation_node $nav
- * @param stdClass $user
- * @param context_user $context
+ * Extend user navigation to include independent privacy modules.
  */
 function local_privacy_portal_extend_navigation_user(navigation_node $nav, $user, $context) {
     global $USER;
 
-    // Only show if it's the user themselves or an admin.
     if ($USER->id != $user->id && !is_siteadmin()) {
         return;
     }
 
-    $url = new moodle_url('/local/privacy_portal/index.php', ['id' => $user->id]);
-    
+    // Add Consent Management.
     $nav->add(
-        get_string('pluginname', 'local_privacy_portal'),
-        $url,
-        navigation_node::TYPE_CUSTOM,
-        null,
-        'privacy_portal',
-        new pix_icon('i/permissions', '')
+        get_string('consent_management', 'local_privacy_portal'),
+        new moodle_url('/local/privacy_portal/consent.php', ['id' => $user->id]),
+        navigation_node::TYPE_CUSTOM, null, 'privacy_consent', new pix_icon('i/permissions', '')
+    );
+
+    // Add Data Portability.
+    $nav->add(
+        get_string('data_portability', 'local_privacy_portal'),
+        new moodle_url('/local/privacy_portal/portability.php', ['id' => $user->id]),
+        navigation_node::TYPE_CUSTOM, null, 'privacy_portability', new pix_icon('i/export', '')
+    );
+
+    // Add Sharing Notifications.
+    $nav->add(
+        get_string('sharing_notifications', 'local_privacy_portal'),
+        new moodle_url('/local/privacy_portal/sharing.php', ['id' => $user->id]),
+        navigation_node::TYPE_CUSTOM, null, 'privacy_sharing', new pix_icon('i/item', '')
     );
 }
 
 /**
- * Extend settings navigation to include the Privacy Portal in the Settings tab.
- *
- * @param settings_navigation $settingsnav
- * @param context $context
+ * Extend settings navigation.
  */
 function local_privacy_portal_extend_settings_navigation(settings_navigation $settingsnav, context $context) {
     global $USER;
@@ -49,73 +50,67 @@ function local_privacy_portal_extend_settings_navigation(settings_navigation $se
     if ($context->contextlevel == CONTEXT_USER) {
         $userid = $context->instanceid;
         if ($USER->id == $userid || is_siteadmin()) {
-            $url = new moodle_url('/local/privacy_portal/index.php', ['id' => $userid]);
-            
-            $node = navigation_node::create(
-                get_string('pluginname', 'local_privacy_portal'),
-                $url,
-                navigation_node::TYPE_SETTING,
-                null,
-                'privacy_portal',
-                new pix_icon('i/permissions', '')
-            );
-
-            // Add to user settings if found.
             if ($usersettings = $settingsnav->find('usersettings', navigation_node::TYPE_CONTAINER)) {
-                $usersettings->add_node($node);
-            } else {
-                // Otherwise add to root of settings.
-                $settingsnav->add_node($node);
+                $usersettings->add(
+                    get_string('consent_management', 'local_privacy_portal'),
+                    new moodle_url('/local/privacy_portal/consent.php', ['id' => $userid]),
+                    navigation_node::TYPE_SETTING
+                );
             }
         }
     }
 }
 
 /**
- * Add Privacy Portal to the user's profile page as a card/link.
- *
- * @param \core_user\output\myprofile\tree $tree
- * @param stdClass $user
- * @param bool $iscurrentuser
- * @param stdClass $course
+ * Add modules to the user's profile page as independent cards.
  */
 function local_privacy_portal_myprofile_navigation(\core_user\output\myprofile\tree $tree, $user, $iscurrentuser, $course) {
-    global $USER;
-
     if (!$iscurrentuser && !is_siteadmin()) {
         return;
     }
 
-    $url = new moodle_url('/local/privacy_portal/index.php', ['id' => $user->id]);
-    
-    $node = new \core_user\output\myprofile\node(
-        'administration',
-        'privacy_portal',
-        get_string('pluginname', 'local_privacy_portal'),
-        null,
-        $url,
-        null,
-        new pix_icon('i/permissions', '')
-    );
+    // Module 1: Consent.
+    $tree->add_node(new \core_user\output\myprofile\node(
+        'administration', 'privacy_consent',
+        get_string('consent_management', 'local_privacy_portal'),
+        null, new moodle_url('/local/privacy_portal/consent.php', ['id' => $user->id]),
+        null, new pix_icon('i/permissions', '')
+    ));
 
-    $tree->add_node($node);
+    // Module 2: Portability.
+    $tree->add_node(new \core_user\output\myprofile\node(
+        'administration', 'privacy_portability',
+        get_string('data_portability', 'local_privacy_portal'),
+        null, new moodle_url('/local/privacy_portal/portability.php', ['id' => $user->id]),
+        null, new pix_icon('i/export', '')
+    ));
+
+    // Module 3: Sharing.
+    $tree->add_node(new \core_user\output\myprofile\node(
+        'administration', 'privacy_sharing',
+        get_string('sharing_notifications', 'local_privacy_portal'),
+        null, new moodle_url('/local/privacy_portal/sharing.php', ['id' => $user->id]),
+        null, new pix_icon('i/item', '')
+    ));
 }
 
 /**
- * Add Privacy Portal to the top-right user menu.
- *
- * @param user_menu $menu
- * @return array
+ * Add Privacy modules to the top-right user menu.
  */
 function local_privacy_portal_user_menu_after_links(user_menu $menu) {
     global $USER;
     
-    $url = new moodle_url('/local/privacy_portal/index.php', ['id' => $USER->id]);
-    $item = new \core\output\user_menu_named_link(
-        get_string('pluginname', 'local_privacy_portal'),
-        $url,
+    $items = [];
+    $items[] = new \core\output\user_menu_named_link(
+        get_string('consent_management', 'local_privacy_portal'),
+        new moodle_url('/local/privacy_portal/consent.php', ['id' => $USER->id]),
         new pix_icon('i/permissions', '')
     );
+    $items[] = new \core\output\user_menu_named_link(
+        get_string('data_portability', 'local_privacy_portal'),
+        new moodle_url('/local/privacy_portal/portability.php', ['id' => $USER->id]),
+        new pix_icon('i/export', '')
+    );
     
-    return [$item];
+    return $items;
 }

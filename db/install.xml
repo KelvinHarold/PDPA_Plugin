@@ -55,5 +55,22 @@
         <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" COMMENT="Index for userid foreign key"/>
       </INDEXES>
     </TABLE>
+    <TABLE NAME="local_privacy_portal_audt" COMMENT="PDPA Compliance Audit Log for Section 18">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Unique identifier for the record"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="User involved in the action"/>
+        <FIELD NAME="adminid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Admin who performed action, if applicable"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="50" NOTNULL="true" COMMENT="Action type (e.g. consent_updated)"/>
+        <FIELD NAME="details" TYPE="text" NOTNULL="true" COMMENT="Detailed description of the action"/>
+        <FIELD NAME="ipaddress" TYPE="char" LENGTH="45" NOTNULL="true" COMMENT="IP address of the user"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Time of action"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for the audit table"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" COMMENT="Index for user-based audit queries"/>
+      </INDEXES>
+    </TABLE>
   </TABLES>
 </XMLDB>

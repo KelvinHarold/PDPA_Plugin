@@ -1,0 +1,223 @@
+/**
+ * Privacy Portal Styles - Smooth & Green Design System
+ * Inspired by Tanzania PDPA Compliance Mockups.
+ */
+
+:root {
+    --pp-primary: #17996b;
+    --pp-primary-dark: #0d4d33;
+    --pp-primary-light: #f3fdf8;
+    --pp-accent: #b3e0cf;
+    --pp-text: #276b51;
+    --pp-text-muted: #5b927c;
+    --pp-bg-gradient: linear-gradient(145deg, #d4ecd4, #b7dcb7);
+    --pp-card-bg: rgba(255, 255, 255, 0.85);
+    --pp-radius: 32px;
+    --pp-shadow: 0 18px 32px -12px rgba(13, 77, 51, 0.2);
+}
+
+.local_privacy_portal_container {
+    padding: 1.5rem;
+}
+
+/* Glassmorphism Card Style */
+.local_privacy_portal_container .card {
+    background: var(--pp-card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--pp-radius);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--pp-shadow);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.local_privacy_portal_container .card-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--pp-accent);
+    padding: 1.5rem 2rem;
+}
+
+.local_privacy_portal_container .card-header h5 {
+    color: var(--pp-primary-dark);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.local_privacy_portal_container .card-body {
+    padding: 2rem;
+}
+
+/* Preference Items */
+.pref-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    background: white;
+    border: 1px solid var(--pp-accent);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pref-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+.pref-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pref-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--pp-primary-light);
+    color: var(--pp-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.pref-title {
+    display: block;
+    font-weight: 600;
+    color: var(--pp-primary-dark);
+}
+
+.pref-desc {
+    font-size: 0.875rem;
+    color: var(--pp-text-muted);
+}
+
+/* Badges & Status */
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Buttons */
+.btn-pp {
+    background: var(--pp-primary);
+    color: white !important;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 4px 10px rgba(23, 153, 107, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-pp:hover {
+    background: var(--pp-primary-dark);
+    transform: scale(1.02);
+}
+
+/* Dashboard Layout - Pure Grid & Flex */
+.pp-dashboard-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.pp-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.pp-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 2rem;
+}
+
+/* Responsive Metrics Grid */
+.pp-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Charts Grid */
+.pp-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Card Enhancements */
+.pp-card {
+    background: white;
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.pp-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+/* Mobile Breakpoints */
+@media (max-width: 1200px) {
+    .pp-dashboard-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .pp-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .pp-metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pp-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Chart Container Fixes */
+.chart-container {
+    width: 100%;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.local_privacy_portal_container canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Utility Classes */
+.bg-pp-primary-light {
+    background-color: var(--pp-primary-light);
+}
+
+.text-pp-primary-dark {
+    color: var(--pp-primary-dark);
+}
+
+.btn-pp {
+    width: 100%;
+    margin-bottom: 0.75rem;
+}

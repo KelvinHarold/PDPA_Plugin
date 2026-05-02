@@ -10,7 +10,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_privacy_portal';
-$plugin->version   = 2024050106;
+$plugin->version   = 2024050108;
 $plugin->requires  = 2022111800; // Moodle 4.1
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '1.0.0';
